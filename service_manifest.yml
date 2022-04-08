@@ -1,0 +1,39 @@
+name: martello
+version: $SERVICE_TAG
+description: >-
+  This service wraps the martello classifier
+
+accepts: executable/windows/.*
+rejects: empty|metadata/.*|executable/windows/dos|executable/windows/com
+
+stage: CORE
+category: Static Analysis
+
+file_required: true
+timeout: 60
+disable_cache: false
+
+enabled: true
+is_external: false
+licence_count: 0
+
+config:
+  suspicious_thr: 0.8
+  malicious_thr: 0.95
+
+heuristics:
+  - description: This suspicious heuristic indicates file has possibility of being malware
+    filetype: "executable/windows"
+    heur_id: 1
+    name: Suspicious Martello classification
+    score: 200
+  - description: This malicious heuristic indicates high likelihood of file being malware
+    filetype: "executable/windows"
+    heur_id: 2
+    name: Malicious Martello classification
+    score: 500
+
+docker_config:
+  image: ${REGISTRY}cccs/assemblyline-service-martello:$SERVICE_TAG
+  cpu_cores: 1
+  ram_mb: 512
