@@ -8,7 +8,7 @@ from assemblyline_v4_service.common.base import ServiceBase
 from assemblyline_v4_service.common.request import ServiceRequest
 from assemblyline_v4_service.common.result import Result, ResultOrderedKeyValueSection
 
-boost_lib = "./martello/lib"
+boost_lib = "./martello/boost"
 topk_file = "./martello/bin/top100000-byCF-EmberHashes-n6.bin"
 exec_file = "./martello/bin/martello-vectorizer"
 scaler_file = "./martello/bin/scaler_ember-n6-bycf-trained-on-all-10AUG21.pkl"
