@@ -18,9 +18,9 @@ thread_count = 1
 CMD_FORMAT = Template(f"{exec_file} -f $file_path -k {topk_file} -n 6 -x 6 -t {thread_count} -o $output")
 
 
-class martello(ServiceBase):
+class Martello(ServiceBase):
     def __init__(self, config=None):
-        super(martello, self).__init__(config)
+        super().__init__(config)
 
     def start(self):
         self.log.info("Starting martello")

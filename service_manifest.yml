@@ -1,4 +1,4 @@
-name: martello
+name: Martello
 version: $SERVICE_TAG
 description: >-
   This service wraps the martello classifier
