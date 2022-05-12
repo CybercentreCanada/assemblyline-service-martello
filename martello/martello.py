@@ -46,11 +46,12 @@ class Martello(ServiceBase):
         dtm_arr = np.memmap("/tmp/outfile.bin.part0", mode="r", dtype=np.intc).reshape(-1, self.K)
         dtm_scaled = self.scaler.transform(dtm_arr)
         predict_proba = list(self.sgd.predict_proba(dtm_scaled)[:, 1])[0]
-        if predict_proba > self.config.get("suspicious_thr", 0.8):
-            res = ResultOrderedKeyValueSection("File analysis")
-            res.add_item("Maliciousness", predict_proba)
-            if predict_proba > self.config.get("malicious_thr", 0.95):
-                res.set_heuristic(2)
-            else:
-                res.set_heuristic(1)
-            request.result.add_section(res)
+        res = ResultOrderedKeyValueSection("File analysis")
+        res.add_item("Maliciousness", predict_proba)
+        if predict_proba >= self.config.get("malicious_thr", 0.95):
+            res.set_heuristic(2)
+        elif predict_proba >= self.config.get("suspicious_thr", 0.8):
+            res.set_heuristic(1)
+        elif predict_proba <= self.config.get("benign_thr", 0.2):
+            res.set_heuristic(3)
+        request.result.add_section(res)
