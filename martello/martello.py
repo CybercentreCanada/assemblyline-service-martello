@@ -1,12 +1,17 @@
 import os
 import pickle
 import subprocess
+import warnings
+
 from string import Template
 
 import numpy as np
 from assemblyline_v4_service.common.base import ServiceBase
 from assemblyline_v4_service.common.request import ServiceRequest
 from assemblyline_v4_service.common.result import Result, ResultOrderedKeyValueSection
+
+# Ignore warnings from scikit
+warnings.filterwarnings("ignore")
 
 boost_lib = "./martello/boost"
 topk_file = "./martello/bin/top100000-byCF-EmberHashes-n6.bin"
@@ -39,7 +44,7 @@ class Martello(ServiceBase):
             os.environ["LD_LIBRARY_PATH"] = boost_lib
 
         cmd = CMD_FORMAT.substitute(file_path=request.file_path, output="/tmp/outfile").split()
-        proc = subprocess.run(cmd)
+        proc = subprocess.run(cmd, capture_output=True)
         if proc.returncode != 0:
             raise Exception(f"Martello classifier returned {proc.returncode}")
 
