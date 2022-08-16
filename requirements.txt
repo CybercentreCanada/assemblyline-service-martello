@@ -1,1 +1,1 @@
-scikit-learn
+git+https://github.com/CybercentreCanada/martello.git@main

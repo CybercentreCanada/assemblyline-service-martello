@@ -2,7 +2,13 @@ ARG branch=latest
 FROM cccs/assemblyline-v4-service-base:$branch
 
 # Set service to be run
-ENV SERVICE_PATH martello.martello.Martello
+ENV SERVICE_PATH Martello.Martello.Martello
+
+# Install git-lfs
+USER root
+RUN apt-get update && apt-get install -y git-lfs && rm -rf /var/lib/apt/lists/*
+
+USER assemblyline
 
 # Install python dependencies
 COPY requirements.txt requirements.txt
