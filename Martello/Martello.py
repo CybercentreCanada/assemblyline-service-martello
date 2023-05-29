@@ -18,7 +18,7 @@ class Martello(ServiceBase):
     def execute(self, request: ServiceRequest):
         request.result = Result()
 
-        self.model.outfile = os.path.join(self.working_directory, self.outfile)
+        self.model.outfile = os.path.join(self.working_directory, self.outfile.lstrip("/"))
         self.model.scanfile(request.file_path)
 
         if self.model.fileProba is None:
