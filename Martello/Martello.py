@@ -1,6 +1,7 @@
 import os
 
 import martello
+from assemblyline.common.path import strip_path_inclusion
 from assemblyline_v4_service.common.base import ServiceBase
 from assemblyline_v4_service.common.request import ServiceRequest
 from assemblyline_v4_service.common.result import Result, ResultOrderedKeyValueSection
@@ -18,7 +19,9 @@ class Martello(ServiceBase):
     def execute(self, request: ServiceRequest):
         request.result = Result()
 
-        self.model.outfile = os.path.join(self.working_directory, self.outfile.lstrip("/"))
+        self.model.outfile = os.path.join(
+            self.working_directory, strip_path_inclusion(self.outfile, self.working_directory)
+        )
         self.model.scanfile(request.file_path)
 
         if self.model.fileProba is None:
