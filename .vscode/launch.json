@@ -1,0 +1,36 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "RunServiceOnce Martello",
+            "type": "python",
+            "request": "launch",
+            "module": "assemblyline_v4_service.dev.run_service_once",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "-d",
+                "martello.martello.Martello",
+                "${file}"
+            ],
+            "justMyCode": false,
+        },
+        {
+            "name": "[Service] Martello - Privileged",
+            "type": "python",
+            "request": "launch",
+            "module": "assemblyline_v4_service.run_privileged_service",
+            "env": {
+                "SERVICE_MANIFEST_PATH": "service_manifest.yml",
+                "PRIVILEGED": "true",
+                "SERVICE_PATH": "martello.martello.Martello",
+                "TASKING_DIR": "/tmp/Martello"
+            },
+            "console": "internalConsole",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+        }
+    ]
+}
