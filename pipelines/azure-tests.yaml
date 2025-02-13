@@ -29,4 +29,4 @@ extends:
   parameters:
     samples_repo: unittest-samples
     test_container: "false"
-    
+    timeout: "30"
