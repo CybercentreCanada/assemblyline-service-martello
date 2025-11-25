@@ -2,7 +2,7 @@ ARG branch=latest
 FROM cccs/assemblyline-v4-service-base:$branch
 
 # Python path to the service class from your service directory
-ENV SERVICE_PATH martello.martello.Martello
+ENV SERVICE_PATH=martello.martello.Martello
 
 # Install apt dependencies
 USER root
@@ -12,6 +12,9 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     $(grep -vE "^\s*(#|$)" /tmp/setup/pkglist.txt | tr "\n" " ") && \
     rm -rf /tmp/setup/pkglist.txt /var/lib/apt/lists/*
+
+# Downgrade pip until a different approach to building martello is 
+RUN pip install pip==23.0
 
 # Install python dependencies
 USER assemblyline
